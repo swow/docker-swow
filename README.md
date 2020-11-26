@@ -1,7 +1,7 @@
 # Docker Image for Swow
 
 [![Build Latest Images](https://github.com/swow/docker-swow/workflows/Build%20Latest%20Images/badge.svg)](https://github.com/swow/docker-swow/actions)
-[![license][license-badge]][license-link]
+[![License](https://img.shields.io/badge/license-apache2-blue.svg)](https://github.com/swow/docker-swow/blob/master/LICENSE)
 
 Docker images for [the Swow extension](https://github.com/swow/swow). You can pull the images from [Docker Hub](https://hub.docker.com/r/swow/swow):
 
