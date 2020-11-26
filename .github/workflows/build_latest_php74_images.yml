@@ -1,0 +1,81 @@
+name: Build Latest Images
+
+on:
+  schedule:
+    - cron: '47 3 * * *'
+  workflow_dispatch:
+
+env:
+  PHP_VERSION: "7.4"
+
+jobs:
+  buid_latest_images:
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'swow/docker-swow' }}
+    strategy:
+      fail-fast: true
+
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get/set PHP version
+        id: vars
+        run: echo ::set-output name=php_version::${PHP_VERSION}
+
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      -
+        name: Build and push Docker image swow/swow:php7.4-fpm
+        id: docker_build_php74_fpm
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: dockerfiles/fpm/php${{ steps.vars.outputs.php_version }}/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: swow/swow:php7.4-fpm
+
+      -
+        name: Image digest of swow/swow:php7.4-cli
+        run: echo ${{ steps._php74_fpm.outputs.digest }}
+
+      -
+        name: Build and push Docker image swow/swow:php7.4-cli
+        id: docker_build_php74_cli
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: dockerfiles/cli/php${{ steps.vars.outputs.php_version }}/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: swow/swow:php7.4-cli
+
+      -
+        name: Image digest of swow/swow:php7.4-cli
+        run: echo ${{ steps.docker_build_php74_cli.outputs.digest }}
+
+      -
+        name: Build and push Docker image swow/swow:php7.4-alpine
+        id: docker_build_php74_alpine
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: dockerfiles/alpine/php${{ steps.vars.outputs.php_version }}/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: swow/swow:php7.4-alpine,swow/swow:latest
+
+      -
+        name: Image digest of swow/swow:php7.4-alpine
+        run: echo ${{ steps.docker_build_php74_alpine.outputs.digest }}
