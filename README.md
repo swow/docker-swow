@@ -7,15 +7,18 @@ Docker images for [the Swow extension](https://github.com/swow/swow). You can pu
 
 ```bash
 docker pull swow/swow
-docker pull swow/swow:php7.4-alpine
-docker pull swow/swow:php7.4-cli
-docker pull swow/swow:php7.4-fpm
+docker pull swow/swow:php8.0-alpine
+docker pull swow/swow:php8.0-cli
+docker pull swow/swow:php8.0-fpm
 ```
 
 # Supported Tags and Respective `Dockerfile` Links
 
 * latest images (built with the _develop_ branch of [swow](https://github.com/swow/swow))
-    * [latest, php7.4-alpine](https://github.com/swow/docker-swow/blob/master/dockerfiles/alpine/php7.4/Dockerfile)
+    * [latest, php8.0-alpine](https://github.com/swow/docker-swow/blob/master/dockerfiles/alpine/php8.0/Dockerfile)
+    * [php8.0-cli](https://github.com/swow/docker-swow/blob/master/dockerfiles/cli/php8.0/Dockerfile)
+    * [php8.0-fpm](https://github.com/swow/docker-swow/blob/master/dockerfiles/fpm/php8.0/Dockerfile)
+    * [php7.4-alpine](https://github.com/swow/docker-swow/blob/master/dockerfiles/alpine/php7.4/Dockerfile)
     * [php7.4-cli](https://github.com/swow/docker-swow/blob/master/dockerfiles/cli/php7.4/Dockerfile)
     * [php7.4-fpm](https://github.com/swow/docker-swow/blob/master/dockerfiles/fpm/php7.4/Dockerfile)
 
@@ -37,8 +40,8 @@ docker run --rm -ti swow/swow sh -c "composer -v"
 Use commands like following to build the images locally:
 
 ```bash
-docker build -t swow/swow               -f dockerfiles/alpine/php7.4/Dockerfile .
-docker build -t swow/swow:php7.4-alpine -f dockerfiles/alpine/php7.4/Dockerfile .
-docker build -t swow/swow:php7.4-cli    -f dockerfiles/cli/php7.4/Dockerfile    .
-docker build -t swow/swow:php7.4-fpm    -f dockerfiles/fpm/php7.4/Dockerfile    .
+docker build -t swow/swow               -f dockerfiles/alpine/php8.0/Dockerfile .
+docker build -t swow/swow:php8.0-alpine -f dockerfiles/alpine/php8.0/Dockerfile .
+docker build -t swow/swow:php8.0-cli    -f dockerfiles/cli/php8.0/Dockerfile    .
+docker build -t swow/swow:php8.0-fpm    -f dockerfiles/fpm/php8.0/Dockerfile    .
 ```
